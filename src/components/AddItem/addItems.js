@@ -12,75 +12,78 @@ import {
     ListView
 
 } from 'react-native';
+import axios from 'axios'
 
+import { withLayout } from '../../components/utils/index';
 import HomeHeader from '../common/HomeHeader';
+import Item from '../../components/item';
 
 class addItems extends Component {
-    // constructor(props){
-    //     super(props);
-    //     this.state = {
-    //         dataSource: new ListView.DataSource({rowHasChanged:(r1,r2)=>r1!=r2})
-    //     };
-    //  }
-    createRow(item){
-        return(
+    state = {
+        data: '',
+        components: []
+    }
+    async componentDidMount() {
+        await this.fetchData()
+    }
+
+    createRow(item) {
+        return (
             <View style={styles.item}>
                 <Image
-                style={{width: 150, height: 128}}
-                source={{uri: item.link}}
+                    style={{ width: 150, height: 128 }}
+                    source={{ uri: item.link }}
                 />
             </View>
         );
     }
+
+    async fetchData() {
+        const result = await axios.get('http://localhost:8000/items')
+        const data = await result.data
+        this.setState({
+            data
+        })
+    }
+
+    initComponent() {
+        let tmpComponent = []
+        this.state.data.map((d, index) => {
+            if(tmpComponent.length < 2) {
+                tmpComponent.push(<Item data={d} />)
+            }
+
+            if(tmpComponent.length === 2 || this.state.data.length -1 === index) {
+                this.state.components.push(withLayout(styles.viewStyle2, d._id)(tmpComponent[0], tmpComponent[1]))
+                tmpComponent = []
+            }
+        })
+    }
+
     render() {
+        if (this.state.data !== '' )
+            this.initComponent()
         return (
             <Image source={require("../../images/bg1.png")} style={styles.container}>
-            
-            <HomeHeader
-            title="Add Items"
-            navigation={this.props.navigation}
-            />
+                <HomeHeader
+                    title="Add Items"
+                    navigation={this.props.navigation}
+                />
                 <View style={styles.SquareBackground}>
-                     <View style={styles.viewStyle2}>
+                    <View style={styles.viewStyle2}>
                         <Text style={styles.fontTopic}>Items Today</Text>
                     </View>
-                    <View style={styles.viewStyle2}>
-                        <View style={styles.viewItem}>
-                            <Text style>
-                                Items1
-                            </Text>
+                    <View>
+                    { this.state.components }
                     </View>
-                    <View style={styles.viewItem}>
-                            <Text>
-                                Items2
-                            </Text>
-                        </View>
-                    </View>
-                    <View style={styles.viewStyle2}>
-                        <View style={styles.viewItem}>
-                             <Text>
-                                Items3
-                            </Text>
-                    </View>
-                    <View style={styles.viewItem}>
-                        <Text>
-                            Items4
-                        </Text>
+                    <View>
+                        <TouchableOpacity style={styles.up}
+                            onPress={() => this.props.navigation.navigate('Upload', { refresh: this.fetchData() })}>
+                            <Text style={styles.text}>Input item</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
-                   
-            <View>
-            <TouchableOpacity style={styles.up}
-                    onPress={() => this.props.navigation.navigate('Upload')}>
-                    <Text style={styles.text}>Add Item จ้า</Text>
-                </TouchableOpacity>
-           
-           </View>
-            </View>
-            
-               
-            
-        </Image>
+            </Image>
         );
     }
 }
@@ -98,44 +101,43 @@ const styles = StyleSheet.create({
     SquareBackground: {
         justifyContent: 'space-around',
         alignItems: 'center',
-        flex:1,
-        margin:30,
-        paddingLeft:30,
-        paddingRight:30,
+        flex: 1,
+        margin: 30,
+        paddingLeft: 30,
+        paddingRight: 30,
         backgroundColor: "rgba(44, 62, 80,0.5)"
     },
     fontTopic: {
         fontSize: 25,
-        color:'white'
+        color: 'white'
     },
     viewStyle2: {
         justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row',
     },
-    viewItem:{
+    viewItem: {
         justifyContent: 'space-between',
         alignItems: 'stretch',
-        padding:16,
-        margin:16,
-         flexDirection: 'row',
-         backgroundColor:'rgb(230, 126, 34)'
+        padding: 16,
+        margin: 16,
+        flexDirection: 'row',
+        backgroundColor: 'rgb(230, 126, 34)'
     },
-    up:{
-    marginTop:10,
-    backgroundColor:'rgb(52, 73, 94)',
-    width:200,
-    height:40,
-    alignItems:'center',
-  },
+    up: {
+        marginTop: 10,
+        backgroundColor: 'rgb(52, 73, 94)',
+        width: 200,
+        height: 40,
+        alignItems: 'center',
+    },
 
-  text:{
-    
-    marginTop:20,
-    justifyContent:'center',
-    color:'white',
-    fontWeight:'bold'
-  }
+    text: {
+        marginTop: 10,
+        justifyContent: 'center',
+        color: 'white',
+        fontWeight: 'bold'
+    }
 });
 
 export default addItems;

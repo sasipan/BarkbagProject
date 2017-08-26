@@ -11,33 +11,29 @@ import main from '../components/mainMenu/main';
 import addItems from '../components/AddItem/addItems';
 import uploadPic from '../components/AddItem/uploadPic';
 import DrawerMenu from '../components/common/DrawerMenu';
+import item from '../components/item';
+import profile from '../components/mainMenu/profile';
+
 
 const AddnewItem = StackNavigator({
-  Home: {
-    name: 'mainMenu',
-    screen: main,
-    navigationOptions: {
-      header: null
-    },
-  },
+ 
   AddItem: {
     name: 'AddItem',
     screen: addItems,
     navigationOptions: {
       header: null
     },
-
   },
   Upload: {
     name: 'Upload',
     screen: uploadPic
   },
-  getWeight: {
-    name: 'getWeight',
+  getWeight:{
+    name : 'getWeight',
     screen: getBodyWeight
-  },
-
+  }
 })
+  
 
 const AppNavigator = DrawerNavigator(
   {
@@ -62,7 +58,8 @@ const AppNavigator = DrawerNavigator(
 
 
 
-  }, {
+  }, 
+  {
     contentComponent: DrawerMenu,
     drawerPosition: 'left',
     initialRouteName: 'Home',

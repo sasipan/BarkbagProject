@@ -28,14 +28,13 @@ export default class main extends Component {
 
                      <View style={styles.place3}>
                           <View style={styles.place5}>
-                               <TouchableOpacity style={styles.button1}
-                                   onPress={() => this.props.navigation.navigate('getWeight')}>
+                               <TouchableOpacity style={styles.button1} onPress={() => this.props.navigation.navigate('getWeight')}>
                                      <Text style={styles.buttonText}>WEIGHT</Text>
                                </TouchableOpacity>
                           </View>
                           <View style={styles.place6}>
-                               <TouchableOpacity style={styles.button3}>
-                                     <Text style={styles.buttonText}>FUNCTION2</Text>
+                               <TouchableOpacity style={styles.button3} onPress={() => this.props.navigation.navigate('AddItem')}>
+                                     <Text style={styles.buttonText} >ADDITEM </Text>
                                </TouchableOpacity>
                           </View>
 
