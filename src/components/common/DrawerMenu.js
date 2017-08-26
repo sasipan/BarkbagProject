@@ -36,7 +36,7 @@ export default class DrawerMenu extends React.Component {
   render() {
     function icon(index) {
       if (index == 0) {
-        return <Image source={require('../../images/workstation.jpg')} style={styles.btnIcon} />
+        return <Image source={require('../../images/home.png')} style={styles.btnIcon} />
       } else if (index == 1) {
         return <Image source={require('../../images/workstation.jpg')} style={styles.btnIcon} />
     }
@@ -79,22 +79,22 @@ const styles = StyleSheet.create({
   btn: {
     paddingHorizontal: 20,
     paddingVertical: 20,
-    borderBottomWidth: 1,
-    borderColor: '#2a3540'
+    //borderBottomWidth: 1,
+    //borderColor: '#2a3540'
   },
   btnBox: {
     flexDirection: 'row'
   },
   btnIcon: {
-    height: 16,
-    width: 16,
+    height: 30,
+    width: 30,
   },
   btnTxt: {
     paddingLeft: 20,
     color: '#fff',
     fontSize: 16,
     lineHeight: 17,
-    fontFamily: 'Raleway-Regular'
+    //fontFamily: 'Raleway-Regular'
   },
   btnTxtActive: {
     color: '#f94057'

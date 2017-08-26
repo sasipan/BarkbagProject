@@ -19,13 +19,15 @@ export default class HomeHeader extends React.Component {
   render() {
     return (
       <View style={styles.viewStyle}>
+        
         <TouchableHighlight
           onPress={() => this.props.navigation.navigate('DrawerOpen')}>
           <Image
             style={styles.btnLeft}
-            source={require('../../images/camera.jpg')} />
+            source={require('../../images/menu.png')} />
+        
         </TouchableHighlight>
-        <Text style={styles.title}>{this.props.title}</Text>
+        {/*<Text style={styles.title}>{this.props.title}</Text>*/}
       </View>
     )
   }
@@ -41,11 +43,11 @@ const styles = StyleSheet.create({
     padding: 10
   },
    viewStyle: {
-        backgroundColor: '#303030',
+        backgroundColor: 'rgba(0,0,0,0.3)',
         justifyContent: 'flex-start',
-        alignItems: 'center',
+        alignSelf: 'stretch',
         flexDirection: 'row',
-        height: 60,
+        height: 50,
         paddingTop: 5,
         shadowColor: '#000000',
         shadowOffset: { width: 0, height: 2 },
@@ -54,14 +56,17 @@ const styles = StyleSheet.create({
         position: 'relative'
     },
    btnLeft: {
-    width: 20, 
-    height: 20, 
-    marginLeft: 20,
-     marginRight:15
+    width: 30, 
+    height: 30, 
+    marginLeft: 15,
+    marginRight:15,
+    marginTop:5,
+    justifyContent:'center',
   },
   title: {
+   
     color: 'white',
-    fontSize: 18,
+    fontSize: 35,
     fontWeight: 'bold'
 
   }

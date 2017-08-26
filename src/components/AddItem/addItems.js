@@ -35,6 +35,7 @@ class addItems extends Component {
     render() {
         return (
             <Image source={require("../../images/bg1.png")} style={styles.container}>
+            
             <HomeHeader
             title="Add Items"
             navigation={this.props.navigation}
@@ -129,7 +130,8 @@ const styles = StyleSheet.create({
   },
 
   text:{
-    marginTop:10,
+    
+    marginTop:20,
     justifyContent:'center',
     color:'white',
     fontWeight:'bold'
