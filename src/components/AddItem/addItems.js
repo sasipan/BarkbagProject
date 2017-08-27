@@ -12,7 +12,7 @@ import {
     ListView
 
 } from 'react-native';
-import axios from 'axios'
+import axios from 'axios';
 
 import { withLayout } from '../../components/utils/index';
 import HomeHeader from '../common/HomeHeader';

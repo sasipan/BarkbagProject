@@ -13,10 +13,19 @@ import uploadPic from '../components/AddItem/uploadPic';
 import DrawerMenu from '../components/common/DrawerMenu';
 import item from '../components/item';
 import profile from '../components/mainMenu/profile';
+import searchBLE from '../components/searchBLE';
+import showWeightFromDB from '../components/showWeightFromDB';
 
 
 const AddnewItem = StackNavigator({
- 
+
+  Home: {
+      name: 'Home',
+      screen: main,
+      navigationOptions: {
+        header: null
+      },
+    },
   AddItem: {
     name: 'AddItem',
     screen: addItems,
@@ -28,12 +37,22 @@ const AddnewItem = StackNavigator({
     name: 'Upload',
     screen: uploadPic
   },
-  getWeight:{
-    name : 'getWeight',
+  getWeight: {
+    name: 'getWeight',
     screen: getBodyWeight
+  },
+  SearchBLE: {
+    name: 'SearchBLE',
+    screen: searchBLE
+  },
+  showWeight: {
+    name: 'showWeight',
+    screen: showWeightFromDB
   }
 })
-  
+
+
+
 
 const AppNavigator = DrawerNavigator(
   {
@@ -46,19 +65,12 @@ const AppNavigator = DrawerNavigator(
     },
     AddItem: {
       name: 'Main Menu',
-      screen: addItems,
-      navigationOptions: {
-        header: null
-      },
+      screen: AddnewItem,
+
 
     },
 
-
-
-
-
-
-  }, 
+  },
   {
     contentComponent: DrawerMenu,
     drawerPosition: 'left',

@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import {
     AppRegistry,
     Text,
@@ -7,44 +7,45 @@ import {
     StyleSheet,
     Image,
     TouchableOpacity,
-    
+
 } from 'react-native';
 
 import HomeHeader from '../common/HomeHeader';
 
 export default class getBodyWeight extends Component {
- 
+    constructor(props) {
+        super(props);
+        this.state = {
+            bodyWeight: 0,
+        }
+    }
     render() {
+        console.log(this.state.bodyWeight);
         return (
             <View style={styles.container}>
                 <Image source={require('../../images/2.png')} style={styles.backgroundImages}>
-                
-                
-                <View style={styles.textContainer}>
-                   
-                    <Text style={styles.title}>
-                   Please input your body weight. (kg)
-                    </Text>
-                    
-                    <View style={styles.formInputContainer}>
-                    <TextInput
-                        style={styles.input}
-                        
-                        />
-                    <TouchableOpacity style={styles.buttonContainer}>
-                        <Text style={styles.buttonText}>
-                           NEXT
+                    <View style={styles.textContainer}>
+                        <Text style={styles.title}>
+                            Please input your body weight. (kg)
                         </Text>
-                    </TouchableOpacity>
+                    <View style={styles.formInputContainer}>
+                        <TextInput style={styles.input} keyboardType='numeric' maxLength={5} 
+                            onChangeText={bodyWeight => this.setState({bodyWeight})}  />
+                            <TouchableOpacity style={styles.buttonContainer} 
+                                onPress={() => this.props.navigation.navigate('showWeight')}>
+                                <Text style={styles.buttonText}>
+                                    NEXT
+                                </Text>
+                            </TouchableOpacity>
 
-                  
-                </View>
 
-                </View>
-                
-                
-              </Image>  
-            </View> 
+                        </View>
+
+                    </View>
+
+
+                </Image>
+            </View>
         );
     }
 }
@@ -52,7 +53,7 @@ export default class getBodyWeight extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-      
+
     },
     backgroundImages: {
         flex: 1,
@@ -68,8 +69,8 @@ const styles = StyleSheet.create({
         textAlign: "center",
         //opacity: 0.9,
         fontSize: 20
-        
-        
+
+
     },
 
     formInputContainer: {
@@ -91,20 +92,20 @@ const styles = StyleSheet.create({
         color: "#FFFF",
         fontSize: 30,
         textAlign: "center",
-        
+
     },
     buttonContainer: {
         backgroundColor: "#fff",
         paddingVertical: 10,
         alignItems: 'center',
         justifyContent: 'center'
-        
+
     },
     buttonText: {
         textAlign: "center",
         color: "#2980b9",
         fontSize: 20,
-   
+
     }
 
 });

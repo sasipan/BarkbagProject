@@ -37,19 +37,17 @@ export default class main extends Component {
                                      <Text style={styles.buttonText} >ADDITEM </Text>
                                </TouchableOpacity>
                           </View>
-
                      </View>
                      
                      <View style={styles.place4}>
                          <View style={styles.place7}>
-                               <TouchableOpacity style={styles.button2}>
-                                   
-                                   <Text style={styles.buttonText}>FUNCTION3</Text>
+                               <TouchableOpacity style={styles.button2} onPress={() => this.props.navigation.navigate('SearchBLE')}>
+                                   <Text style={styles.buttonText}>BLE</Text>
                                </TouchableOpacity>
                           </View>
                           <View style={styles.place8}>
-                               <TouchableOpacity style={styles.button4}>
-                                   <Text style={styles.buttonText}>FUNCTION4</Text>
+                               <TouchableOpacity style={styles.button4} onPress={() => this.props.navigation.navigate('showWeight')}>
+                                   <Text style={styles.buttonText}>คำนวณนน.</Text>
                                </TouchableOpacity>
                           </View>
 
