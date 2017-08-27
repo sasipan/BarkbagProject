@@ -13,9 +13,9 @@ import {
     AsyncStorage
 
 } from 'react-native'
-import axios from 'axios';
-import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import ImagePicker from 'react-native-image-picker';
+import axios from 'axios'
+import LinkedStateMixin from 'react-addons-linked-state-mixin'
+import ImagePicker from 'react-native-image-picker'
 
 class uploadPic extends Component {
 

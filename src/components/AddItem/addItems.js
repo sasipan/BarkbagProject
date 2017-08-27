@@ -26,7 +26,6 @@ class addItems extends Component {
     async componentDidMount() {
         await this.fetchData()
     }
-
     createRow(item) {
         return (
             <View style={styles.item}>
@@ -37,7 +36,6 @@ class addItems extends Component {
             </View>
         );
     }
-
     async fetchData() {
         const result = await axios.get('http://localhost:8000/items')
         const data = await result.data
@@ -45,15 +43,14 @@ class addItems extends Component {
             data
         })
     }
-
     initComponent() {
         let tmpComponent = []
         this.state.data.map((d, index) => {
-            if(tmpComponent.length < 2) {
+            if (tmpComponent.length < 2) {
                 tmpComponent.push(<Item data={d} />)
             }
 
-            if(tmpComponent.length === 2 || this.state.data.length -1 === index) {
+            if (tmpComponent.length === 2 || this.state.data.length - 1 === index) {
                 this.state.components.push(withLayout(styles.viewStyle2, d._id)(tmpComponent[0], tmpComponent[1]))
                 tmpComponent = []
             }
@@ -61,7 +58,7 @@ class addItems extends Component {
     }
 
     render() {
-        if (this.state.data !== '' )
+        if (this.state.data !== '')
             this.initComponent()
         return (
             <Image source={require("../../images/bg1.png")} style={styles.container}>
@@ -74,11 +71,11 @@ class addItems extends Component {
                         <Text style={styles.fontTopic}>Items Today</Text>
                     </View>
                     <View>
-                    { this.state.components }
+                        { this.state.components }
                     </View>
                     <View>
                         <TouchableOpacity style={styles.up}
-                            onPress={() => this.props.navigation.navigate('Upload', { refresh: this.fetchData() })}>
+                            onPress={() => this.props.navigation.navigate('Upload')}>
                             <Text style={styles.text}>Input item</Text>
                         </TouchableOpacity>
                     </View>

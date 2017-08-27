@@ -32,13 +32,11 @@ export default class getBodyWeight extends Component {
                         <TextInput style={styles.input} keyboardType='numeric' maxLength={5} 
                             onChangeText={bodyWeight => this.setState({bodyWeight})}  />
                             <TouchableOpacity style={styles.buttonContainer} 
-                                onPress={() => this.props.navigation.navigate('showWeight')}>
+                                onPress={() => this.props.navigation.navigate('SearchBLE')}>
                                 <Text style={styles.buttonText}>
                                     NEXT
                                 </Text>
                             </TouchableOpacity>
-
-
                         </View>
 
                     </View>

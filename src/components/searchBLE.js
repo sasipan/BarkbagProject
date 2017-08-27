@@ -16,7 +16,7 @@ import {
 
 import BleManager from 'react-native-ble-manager';
 import {RkButton , RkText} from 'react-native-ui-kitten';
-import calWeight from '../components/calWeight';
+import calWeight from '../components/mainMenu/getBodyWeight';
 
 export default class searchBLE extends React.Component {
   constructor(props) {
@@ -29,81 +29,81 @@ export default class searchBLE extends React.Component {
     }
   }
   componentDidMount() {
-    console.log(this.props.navigation.state.params.bodyWeight)
-    BleManager.start({showAlert: false}).then(result=>console.log(result) ,err => console.log(err));
-    console.log(BleManager)
-    this.handleDiscoverPeripheral = this.handleDiscoverPeripheral.bind(this);
+    // console.log(this.props.navigation.state.params.bodyWeight)
+    // BleManager.start({showAlert: false}).then(result=>console.log(result) ,err => console.log(err));
+    // console.log(BleManager)
+    // this.handleDiscoverPeripheral = this.handleDiscoverPeripheral.bind(this);
 
-    NativeAppEventEmitter
-        .addListener('BleManagerDiscoverPeripheral', this.handleDiscoverPeripheral );
+    // NativeAppEventEmitter
+    //     .addListener('BleManagerDiscoverPeripheral', this.handleDiscoverPeripheral );
         
-    if (Platform.OS === 'android' && Platform.Version >= 23) {
-        PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION).then((result) => {
-            if (result) {
-              console.log("Permission is OK");
-            } else {
-              PermissionsAndroid.requestPermission(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION).then((result) => {
-                if (result) {
-                  console.log("User accept");
-                } else {
-                  console.log("User refuse");
-                }
-              }, err => { console.log(err) });
-            }
-      }, err => {
-        console.log(err);
-      });
-    }
+    // if (Platform.OS === 'android' && Platform.Version >= 23) {
+    //     PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION).then((result) => {
+    //         if (result) {
+    //           console.log("Permission is OK");
+    //         } else {
+    //           PermissionsAndroid.requestPermission(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION).then((result) => {
+    //             if (result) {
+    //               console.log("User accept");
+    //             } else {
+    //               console.log("User refuse");
+    //             }
+    //           }, err => { console.log(err) });
+    //         }
+    //   }, err => {
+    //     console.log(err);
+    //   });
+    // }
 
-    this.toggleScanning(true);
+  //   this.toggleScanning(true);
+  // }
+
+  // handleScan() {
+  //     BleManager.scan([], 60, true)
+  //         .then((results) => {
+  //           let check = true;
+  //           if(this.state.devices.length === 0){
+  //             this.state.devices.push({
+  //               name: this.state.ble.name,
+  //               id: this.state.ble.id
+  //             })
+  //           }
+
+  //           for(let i=0;i<this.state.devices.length;i++){
+  //               if(this.state.devices[i].id === this.state.ble.id){
+  //                 check = false;
+  //                 break;
+  //               }
+  //             }
+  //             console.log(check)
+  //             if(check)
+  //               this.state.devices.push({
+  //               name: this.state.ble.name,
+  //               id: this.state.ble.id,
+  //             })
+  //           console.log('Scanning...'); 
+  //           console.log(this.state.ble.id)
+  //         })
+  //         .catch(err => { console.log(err) });
+  // }
+
+  // handleDiscoverPeripheral(data){
+  //       this.setState({ ble: data })
+  //   }
+
+  // toggleScanning(bool){
+  //     if (bool) {
+  //         this.setState({scanning:true})
+  //         this.handleScan();
+  //         setTimeout(() => {
+  //           this.scanning = setInterval( ()=> this.handleScan(), 5000);
+  //         })
+  //     } else{
+  //         this.setState({scanning:false, ble: null})
+  //         clearInterval(this.scanning);
+  //     }
+  // }
   }
-
-  handleScan() {
-      BleManager.scan([], 60, true)
-          .then((results) => {
-            let check = true;
-            if(this.state.devices.length === 0){
-              this.state.devices.push({
-                name: this.state.ble.name,
-                id: this.state.ble.id
-              })
-            }
-
-            for(let i=0;i<this.state.devices.length;i++){
-                if(this.state.devices[i].id === this.state.ble.id){
-                  check = false;
-                  break;
-                }
-              }
-              console.log(check)
-              if(check)
-                this.state.devices.push({
-                name: this.state.ble.name,
-                id: this.state.ble.id,
-              })
-            console.log('Scanning...'); 
-            console.log(this.state.ble.id)
-          })
-          .catch(err => { console.log(err) });
-  }
-
-  handleDiscoverPeripheral(data){
-        this.setState({ ble: data })
-    }
-
-  toggleScanning(bool){
-      if (bool) {
-          this.setState({scanning:true})
-          this.handleScan();
-          setTimeout(() => {
-            this.scanning = setInterval( ()=> this.handleScan(), 5000);
-          })
-      } else{
-          this.setState({scanning:false, ble: null})
-          clearInterval(this.scanning);
-      }
-  }
-
   connect(id) {
     BleManager.connect(id)
       .then(peripheralInfo => {
@@ -152,6 +152,11 @@ export default class searchBLE extends React.Component {
     return (
       <Image source={require("../images/bg1.png")} style={styles.container}>
           { this.fetchBluetooth() }
+           <TouchableOpacity style={styles.buttonContainer} >
+                            <Text style={styles.buttonText}onPress={() => this.props.navigation.navigate('showWeight')}>
+                                Next
+                        </Text>
+                        </TouchableOpacity>
       </Image>
     );
 
@@ -168,13 +173,7 @@ export default class searchBLE extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: undefined,
-    height: undefined,
-    alignItems: 'center',
-    color: '#ffffff',
-  },
+  
   header: {
     top: 50,
     fontSize: 22,
@@ -192,6 +191,91 @@ const styles = StyleSheet.create({
   searchText: {
     color: '#ffffff',
     fontSize: 18,
-  }
+  },
+  container: {
+        flex: 1,
+        width: null,
+        height: null,
+        justifyContent: 'space-around',
+        alignItems: 'center'
+    },
+    SquareBackground: {
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        flex: 1,
+        // margin: 30,
+        // paddingLeft: 30,
+        // paddingRight: 30,
+        width: 300,
+        height: 300,
+        backgroundColor: "rgba(44, 62, 80,0.5)"
+    },
+    fontTopic: {
+        fontSize: 25,
+        color: 'white'
+    },
+    viewStyle2: {
+        justifyContent: 'space-between',
+        alignItems: 'center',
+
+    },
+    viewItem: {
+        justifyContent: 'space-between',
+        alignItems: 'stretch',
+        padding: 16,
+        margin: 16,
+        flexDirection: 'row',
+        backgroundColor: 'yellow'
+    },
+
+    backgroundImages: {
+        flex: 1,
+        alignSelf: 'stretch',
+        width: null,
+        justifyContent: 'center',
+
+    },
+    inputContainer: {
+
+        marginTop: 5,
+        padding: 30,
+        alignSelf: 'stretch',
+
+
+    },
+    input: {
+        color: 'white',
+        fontSize: 16,
+        height: 50,
+        padding: 10,
+        marginBottom: 20,
+        borderWidth: 2,
+        borderColor: '#fff',
+        backgroundColor: 'rgba(255,255,255,0)',
+
+    },
+    inputDes: {
+        color: 'white',
+        fontSize: 16,
+        height: 80,
+        padding: 10,
+        marginBottom: 20,
+        borderWidth: 2,
+        borderColor: '#fff',
+        backgroundColor: 'rgba(255,255,255,0)',
+
+    },
+    buttonContainer: {
+        backgroundColor: "rgb(44, 62, 80)",
+        paddingVertical: 10,
+        //margin: 30,
+        width: 100,
+        height: 40
+    },
+    buttonText: {
+        textAlign: "center",
+        color: "#FFFF",
+        fontSize: 20
+    }
   
 });
